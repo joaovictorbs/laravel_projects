@@ -3,7 +3,7 @@
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Models\Task;
 
 Route::get('/', function() {
     return redirect()->route('tasks.index');
@@ -11,7 +11,7 @@ Route::get('/', function() {
 
 Route::get('/tasks', function () {
     return view('index', [
-        'tasks' => \App\Models\Task::latest()->get() #registros mais recentes primeiro
+        'tasks' => Task::latest()->get() #registros mais recentes primeiro
     ]);
 })->name('tasks.index');
 
@@ -23,12 +23,24 @@ Route::view('/tasks/create', 'create')
 Route::get('/tasks{id}', function ($id) {
     
     return view('show', [
-        'task' => \App\Models\Task::findOrFail($id)
+        'task' => Task::findOrFail($id)
     ]); #busca registro no banco de dados pelo ID / retorna null se nao encontrar
 })->name('tasks.show');
 
 Route::post('/tasks', function(Request $request) {
-    dd($request->all());
+    $data = $request->validate([
+        'title' => 'required|max:255',
+        'description' => 'required',
+        'long_description' => 'required'
+    ]); #valida dados declarando obrigatoriedade e tamanho maximo
+
+    $task = new Task();
+    $task->title = $data['title'];
+    $task->description = $data['description'];
+    $task->long_description = $data['long_description'];
+    $task->save(); #salva novo registro
+
+    return redirect()->route('tasks.show', ['id' => $task->id]); #redireciona para rota
 })->name('tasks.store');
 
 
