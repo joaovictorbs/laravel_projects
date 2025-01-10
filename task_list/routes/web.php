@@ -20,8 +20,14 @@ Route::view('/tasks/create', 'create')
 
 # se a rota de cima ficasse embaixo da /tasks{id} pode acontecer de buscar o create como o id
 
-Route::get('/tasks{id}', function ($id) {
-    
+Route::get('/tasks/{id}/edit', function ($id) {
+    return view('edit', [
+        'task' => Task::findOrFail($id)
+    ]); #busca registro no banco de dados pelo ID / retorna null se nao encontrar
+})->name('tasks.edit');
+
+
+Route::get('/tasks/{id}', function ($id) {
     return view('show', [
         'task' => Task::findOrFail($id)
     ]); #busca registro no banco de dados pelo ID / retorna null se nao encontrar
@@ -43,6 +49,23 @@ Route::post('/tasks', function(Request $request) {
     return redirect()->route('tasks.show', ['id' => $task->id])
     ->with('success', 'Task created successfully'); #redireciona para rota / define dados de sessão com with / flash message
 })->name('tasks.store');
+
+Route::put('/tasks/{id}', function($id, Request $request) {
+    $data = $request->validate([
+        'title' => 'required|max:255',
+        'description' => 'required',
+        'long_description' => 'required'
+    ]);
+
+    $task = Task::findOrFail($id);
+    $task->title = $data['title'];
+    $task->description = $data['description'];
+    $task->long_description = $data['long_description'];
+    $task->save(); #edita registro
+
+    return redirect()->route('tasks.show', ['id' => $task->id])
+    ->with('success', 'Task updated successfully'); #redireciona para rota / define dados de sessão com with / flash message
+})->name('tasks.update');
 
 
 
