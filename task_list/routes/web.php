@@ -64,7 +64,7 @@ Route::put('/tasks/{id}', function($id, Request $request) {
     $task->save(); #edita registro
 
     return redirect()->route('tasks.show', ['id' => $task->id])
-    ->with('success', 'Task updated successfully'); #redireciona para rota / define dados de sessão com with / flash message
+    ->with('success', 'Task updated successfully');
 })->name('tasks.update');
 
 
