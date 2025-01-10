@@ -40,7 +40,8 @@ Route::post('/tasks', function(Request $request) {
     $task->long_description = $data['long_description'];
     $task->save(); #salva novo registro
 
-    return redirect()->route('tasks.show', ['id' => $task->id]); #redireciona para rota
+    return redirect()->route('tasks.show', ['id' => $task->id])
+    ->with('success', 'Task created successfully'); #redireciona para rota / define dados de sessão com with / flash message
 })->name('tasks.store');
 
 
