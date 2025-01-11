@@ -13,7 +13,7 @@ Route::get('/', function() {
 
 Route::get('/tasks', function () {
     return view('index', [
-        'tasks' => Task::latest()->get() #registros mais recentes primeiro
+        'tasks' => Task::latest()->paginate(10) #registros mais recentes primeiro
     ]);
 })->name('tasks.index');
 
@@ -53,12 +53,20 @@ Route::put('/tasks/{task}', function(Task $task, TaskRequest $request) {
     ->with('success', 'Task updated successfully');
 })->name('tasks.update');
 
+
 Route::delete('/tasks/{task}', function(Task $task) {
     $task->delete();
 
     return redirect()->route('tasks.index')
         ->with('success', 'Task deleted successfully!');
 })->name('tasks.destroy');
+
+
+Route::put('tasks/{task}/toggle-complete', function(Task $task) {
+    $task->toggleComplete();
+
+    return redirect()->back()->with('success', 'Task updated successfully'); #retorna a tela anterior
+})->name('tasks.toggle-complete');
 
 
 Route::fallback(function () {

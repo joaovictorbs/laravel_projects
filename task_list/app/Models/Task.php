@@ -12,4 +12,8 @@ class Task extends Model
     protected $fillable = ['title', 'description', 'long_description']; #habilita campos para preenchimento em massa
     // protected $guarded = ['secret']; #campos que nao podem ser preenchidos em massa / oposto do fillable
 
+    public function toggleComplete() {
+        $this->completed = !$this->completed; #altera de acordo com o atual
+        $this->save();
+    }
 }
