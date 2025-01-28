@@ -38,7 +38,7 @@
 
 <body class="container mx-auto mt-10 mb-10 max-w-lg">
     <h1 class="mb-4 text-2xl">@yield('title')</h1>
-    <div x-data="{ flash: true}">
+    <div x-data="{ flash: true }">
         @if (session()->has('success'))
             <div x-show="flash" 
                 class="relative mb-10 rounded border border-green-400 bg-green-100 px-4 py-3 text-lg text-green-700"

@@ -1,11 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'The list of Tasks')
+@section('title', 'The list of tasks')
 
 @section('content')
   <nav class="mb-4">
-    <a href="{{ route('tasks.create') }}"
-    class="link">Add Task!</a>
+    <a href="{{ route('tasks.create') }}" class="link">Add Task!</a>
   </nav>    
 
   @forelse ($tasks as $task)
@@ -19,7 +18,7 @@
   
   @if ($tasks->count())
     <nav class="mt-4">
-      {{$tasks->links()}}
+      {{ $tasks->links() }}
     </nav>
   @endif
 @endsection
