@@ -13,13 +13,9 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('book_id');
-            $table->text('review');
-            $table->unsignedTinyInteger('rating');
+            $table->string('title');
+            $table->string('author');
             $table->timestamps();
-
-            // $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
-            $table->foreignId('book_id')->constrained()->cascadeOnDelete();
         });
     }
 
