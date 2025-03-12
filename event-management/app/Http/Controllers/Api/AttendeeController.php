@@ -33,9 +33,10 @@ class AttendeeController extends Controller
         Gate::authorize('create', Attendee::class);
         $attendee = $this->loadRelationships(
             $event->attendees()->create([
-                'user_id' => 1
+                'user_id' => $request->user()->id
             ])
         );
+
         return new AttendeeResource($attendee);
     }
 
@@ -47,7 +48,7 @@ class AttendeeController extends Controller
         );
     }
 
-    public function destroy(string $id, Attendee $attendee)
+    public function destroy(Event $event, Attendee $attendee)
     {
         Gate::authorize('delete', $attendee);
         $attendee->delete();

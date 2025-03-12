@@ -17,7 +17,8 @@ class EventController extends Controller
 
     public function index()
     {
-        $query = $this->loadRelationships(Event::query(), $this->relations);
+        Gate::authorize('viewAny', Event::class);
+        $query = $this->loadRelationships(Event::query());
 
         return EventResource::collection(
             $query->latest()->paginate()
@@ -26,6 +27,7 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
+        Gate::authorize('create', Event::class);
         $event = Event::create([
                             ...$request->validate([
                                     'name' => 'required|string|max:255',
@@ -41,6 +43,7 @@ class EventController extends Controller
 
     public function show(Event $event)
     {
+        Gate::authorize('view', $event);
         return new EventResource($this->loadRelationships($event));
     }
 
@@ -61,6 +64,7 @@ class EventController extends Controller
 
     public function destroy(Event $event)
     {
+        Gate::authorize('delete', $event);
         $event->delete();
 
         return response(status: 204);
