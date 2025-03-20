@@ -19,7 +19,7 @@ class CreatePoll extends Component
     
 
     protected $messages = [
-        'options.*' => "The option can't be empty."
+        'options.*' => 'The option can\'t be empty.'
     ];
 
     public function render()
@@ -51,15 +51,12 @@ class CreatePoll extends Component
             'title' => $this->title
         ])->options()->createMany(
             collect($this->options)
-                ->map(fn ($option) => ['name' => $option])
+                ->map(fn($option) => ['name' => $option])
                 ->all()
         );
 
         $this->reset(['title', 'options']);
+
+        $this->dispatch('pollCreated');
     }
-
-    // public function mount()
-    // {
-
-    // }
 }
