@@ -16,4 +16,9 @@ class Polls extends Component
 
         return view('livewire.polls', ['polls' => $polls]);
     }
+
+    public function vote(Option $option)
+    {
+        $option->votes()->create();
+    }
 }
