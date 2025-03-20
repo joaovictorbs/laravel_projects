@@ -36,6 +36,17 @@
   @livewireScripts
 
   @livewire('create-poll')
+
+  <div>
+    <h2 class="mb-4 mt-4 text-2xl">Create Poll</h2>
+    @livewire('create-poll')
+  </div>
+  
+  <div>
+    <h2 class="mb-4 mt-4 text-2xl">Available Polls</h2>
+    @livewire('polls')
+  </div>
+
 </body>
 
 </html>
