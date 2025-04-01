@@ -1,7 +1,7 @@
 <div>
     <label for="{{ $name }}" class="mb-1 flex items-center">
         <input type="radio" name="{{ $name }}" value=""
-            @checked(!request($name)) />
+          @checked(!request($name)) />
         <span class="ml-2">All</span>
     </label>
 
