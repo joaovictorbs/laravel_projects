@@ -29,21 +29,21 @@
                     <div>
                         <x-label for="experience" :required="true">Experience</x-label>
                         <x-radio-group name="experience" :value="old('experience')"
-                            :all-option="false"
-                            :options="array_combine(
-                                array_map('ucfirst', \App\Models\Job::$experience),
-                                \App\Models\Job::$experience,
-                            )" />
-                    </div>
+                          :all-option="false"
+                          :options="array_combine(
+                              array_map('ucfirst', \App\Models\Job::$experience),
+                              \App\Models\Job::$experience,
+                          )" />
+                      </div>
 
                     <div>
-                        <x-label for="experience" :required="true">Category</x-label>
+                        <x-label for="category" :required="true">Category</x-label>
                         <x-radio-group name="category" :all-option="false"
                             :options="\App\Models\Job::$category" />
                     </div>
 
                     <div class="col-span-2">
-                        <x-button class="w-full"></x-button>
+                        <x-button class="w-full">Create Job</x-button>
                     </div>
                 </div>
             </form>
