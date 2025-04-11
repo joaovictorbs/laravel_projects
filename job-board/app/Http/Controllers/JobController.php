@@ -11,7 +11,7 @@ class JobController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {  
+    {
         Gate::authorize('viewAny', Job::class);
         $filters = request()->only(
             'search',
@@ -23,7 +23,7 @@ class JobController extends Controller
 
         return view(
             'job.index',
-             ['jobs' => Job::with('employer')->latest()->filter($filters)->get()]
+            ['jobs' => Job::with('employer')->latest()->filter($filters)->get()]
         );
     }
 

@@ -18,7 +18,7 @@ class JobRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -28,7 +28,7 @@ class JobRequest extends FormRequest
             'salary' => 'required|numeric|min:5000',
             'description' => 'required|string',
             'experience' => 'required|in:' . implode(',', Job::$experience),
-            'category' => 'required|in:' . implode(',', Job::$category),
+            'category' => 'required|in:' . implode(',', Job::$category)
         ];
     }
 }

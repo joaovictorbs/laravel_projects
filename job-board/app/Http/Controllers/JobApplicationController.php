@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Gate;
 
 class JobApplicationController extends Controller
 {
-
     public function create(Job $job)
     {
         Gate::authorize('apply', $job);
@@ -25,7 +24,7 @@ class JobApplicationController extends Controller
         ]);
 
         $file = $request->file('cv');
-        $path = $file->store('cvs', 'private');
+        $path = $file->store('cvs', 'local');
 
         $job->jobApplications()->create([
             'user_id' => $request->user()->id,
